@@ -1,6 +1,3 @@
-# hello
-just another repository
+# D3.js and CreateJS
 
-hola
-
-no se que poner, gracias totales
+Ejercicio en HTML, CSS y javascritp
