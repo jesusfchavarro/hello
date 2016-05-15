@@ -270,7 +270,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 
 	// timeline functions:
 	this.frame_0 = function() {
-		this.gotoAndStop(4);
+	//	this.gotoAndStop(4);
 		this.stop();
 		var scene = this;
 		var lin = {};
