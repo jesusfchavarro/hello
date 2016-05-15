@@ -21,7 +21,7 @@ var svg = d3.select('svg')
 // Add background
 svg.append('rect')
   .attr('class', 'background')
-  .attr('width', width)
+  .attr('width', width) 
   .attr('height', height)
   .on('click', clicked);
 var g = svg.append('g');
