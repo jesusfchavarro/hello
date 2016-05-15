@@ -1,5 +1,5 @@
 var mapDirection = "Colombia.geo.json";
-var width = 960,
+var width = 500,
     height = 500,
     centered;
 // Define color scale
@@ -94,8 +94,6 @@ function clicked(d) {
 function mouseover(d){
   // Highlight hovered province
   d3.select(this).style('fill', 'orange');
-  // Draw effects
-  textArt(nameFn(d));
 }
 function mouseout(d){
   // Reset province color
@@ -108,102 +106,5 @@ function mouseout(d){
   // Clear province name
   bigText.text('');
 }
-// Gimmick
-// Just me playing around.
-// You won't need this for a regular map.
-var BASE_FONT = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-var FONTS = [
-  "Open Sans",
-  "Josefin Slab",
-  "Arvo",
-  "Lato",
-  "Vollkorn",
-  "Abril Fatface",
-  "Old StandardTT",
-  "Droid+Sans",
-  "Lobster",
-  "Inconsolata",
-  "Montserrat",
-  "Playfair Display",
-  "Karla",
-  "Alegreya",
-  "Libre Baskerville",
-  "Merriweather",
-  "Lora",
-  "Archivo Narrow",
-  "Neuton",
-  "Signika",
-  "Questrial",
-  "Fjalla One",
-  "Bitter",
-  "Varela Round"
-];
-function textArt(text){
-  // Use random font
-  var fontIndex = Math.round(Math.random() * FONTS.length);
-  var fontFamily = FONTS[fontIndex] + ', ' + BASE_FONT;
-  bigText
-    .style('font-family', fontFamily)
-    .text(text);
-  // Use dummy text to compute actual width of the text
-  // getBBox() will return bounding box
-  dummyText
-    .style('font-family', fontFamily)
-    .text(text);
-  var bbox = dummyText.node().getBBox();
-  var textWidth = bbox.width;
-  var textHeight = bbox.height;
-  var xGap = 3;
-  var yGap = 1;
-  // Generate the positions of the text in the background
-  var xPtr = 0;
-  var yPtr = 0;
-  var positions = [];
-  var rowCount = 0;
-  while(yPtr < height){
-    while(xPtr < width){
-      var point = {
-        text: text,
-        index: positions.length,
-        x: xPtr,
-        y: yPtr
-      };
-      var dx = point.x - width/2 + textWidth/2;
-      var dy = point.y - height/2;
-      point.distance = dx*dx + dy*dy;
-      positions.push(point);
-      xPtr += textWidth + xGap;
-    }
-    rowCount++;
-    xPtr = rowCount%2===0 ? 0 : -textWidth/2;
-    xPtr += Math.random() * 10;
-    yPtr += textHeight + yGap;
-  }
-  var selection = effectLayer.selectAll('text')
-    .data(positions, function(d){return d.text+'/'+d.index;});
-  // Clear old ones
-  selection.exit().transition()
-    .style('opacity', 0)
-    .remove();
-  // Create text but set opacity to 0
-  selection.enter().append('text')
-    .text(function(d){return d.text;})
-    .attr('x', function(d){return d.x;})
-    .attr('y', function(d){return d.y;})
-    .style('font-family', fontFamily)
-    .style('fill', '#777')
-    .style('opacity', 0);
-  selection
-    .style('font-family', fontFamily)
-    .attr('x', function(d){return d.x;})
-    .attr('y', function(d){return d.y;});
-  // Create transtion to increase opacity from 0 to 0.1-0.5
-  // Add delay based on distance from the center of the <svg> and a bit more randomness.
-  selection.transition()
-    .delay(function(d){
-      return d.distance * 0.01 + Math.random()*1000;
-    })
-    .style('opacity', function(d){
-      return 0.1 + Math.random()*0.4;
-    });
-}
+
+
