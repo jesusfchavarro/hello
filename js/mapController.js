@@ -6,7 +6,7 @@ var width = 500,
 var color = d3.scale.linear()
   .domain([1, 20])
   //.clamp(true)
-  .range(['#FFF', '#F65012']);
+  .range(['#FFF', '#000']);
 var projection = d3.geo.mercator()
   .scale(1500)
   // Center the Map in Colombia
