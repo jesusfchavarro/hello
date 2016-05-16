@@ -42,7 +42,7 @@ var bigText = g.append('text')
 d3.json(mapDirection, function(error, mapData) {
   var features = mapData.features;
   // Update color scale domain based on data
-  color.domain([0, d3.max(features, nameLength)]);
+  color.domain([d3.min(features, area), d3.max(features, area)]);
   // Draw each province as a path
   mapLayer.selectAll('path')
       .data(features)
@@ -62,6 +62,11 @@ function nameFn(d){
 function nameLength(d){
   var n = nameFn(d);
   return n ? n.length : 0;
+}
+
+//provee el area
+function area(d){
+  return d && d.properties ? d.properties.AREA : null; 
 }
 // Get province color
 function fillFn(d){
