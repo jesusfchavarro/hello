@@ -6,7 +6,7 @@ var width = 500,
 var color = d3.scale.linear()
   .domain([1, 20])
   //.clamp(true)
-  .range(['#FFF', '#000']);
+  .range(['#FFF', '#0F0']);
 var projection = d3.geo.mercator()
   .scale(1500)
   // Center the Map in Colombia
@@ -70,7 +70,7 @@ function area(d){
 }
 // Get province color
 function fillFn(d){
-  return color(nameLength(d));
+  return color(area(d));
 }
 // When clicked, zoom in
 function clicked(d) {
