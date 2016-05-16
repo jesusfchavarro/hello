@@ -1,12 +1,13 @@
-var mapDirection = "Colombia.geo.json";
+var mapDirection = "http://jesusfchavarro.github.io/hello/Colombia.geo.json";
+
 var width = 500,
     height = 500,
     centered;
 // Define color scale
 var color = d3.scale.linear()
   .domain([1, 20])
-  //.clamp(true)
-  .range(['#FFF', '#0F0']);
+  .clamp(true)
+  .range(['#FFF', '#D00']);
 var projection = d3.geo.mercator()
   .scale(1500)
   // Center the Map in Colombia
@@ -21,7 +22,7 @@ var svg = d3.select('svg')
 // Add background
 svg.append('rect')
   .attr('class', 'background')
-  .attr('width', width) 
+  .attr('width', width)
   .attr('height', height)
   .on('click', clicked);
 var g = svg.append('g');
@@ -41,8 +42,8 @@ var bigText = g.append('text')
 // Load map data
 d3.json(mapDirection, function(error, mapData) {
   var features = mapData.features;
-  // Update color scale domain based on data
-  color.domain([d3.min(features, area), d3.max(features, area)]);
+  // Update color scale domain d on data
+  color.domain([0, d3.max(features, nameLength)]);
   // Draw each province as a path
   mapLayer.selectAll('path')
       .data(features)
@@ -63,14 +64,9 @@ function nameLength(d){
   var n = nameFn(d);
   return n ? n.length : 0;
 }
-
-//provee el area
-function area(d){
-  return d && d.properties ? d.properties.AREA : null; 
-}
 // Get province color
 function fillFn(d){
-  return color(area(d));
+  return color(nameLength(d));
 }
 // When clicked, zoom in
 function clicked(d) {
@@ -96,20 +92,21 @@ function clicked(d) {
     .duration(750)
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
 }
+
+ var fontFamily = "Lora";
 function mouseover(d){
   // Highlight hovered province
-  d3.select(this).style('fill', 'orange');
+  //d3.select(this).style('fill', 'orange');
+  bigText
+    .style('font-family', fontFamily)
+    .text(nameFn(d));
+
 }
 function mouseout(d){
   // Reset province color
   mapLayer.selectAll('path')
     .style('fill', function(d){return centered && d===centered ? '#D5708B' : fillFn(d);});
-  // Remove effect text
-  effectLayer.selectAll('text').transition()
-    .style('opacity', 0)
-    .remove();
   // Clear province name
   bigText.text('');
+
 }
-
-
