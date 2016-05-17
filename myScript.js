@@ -98,10 +98,8 @@ function playSopa(lib, scene, palabras, coor){
 	function ingresarPalabras(){
 		var bool, bool2, a, b;
 		for(var i=0; i<palabras.length; i++){
-			console.log("palabra: " + palabras[i]);
-			console.log("bool: " + bool);
-			console.log("bool2: " + bool2);
-			console.log("coor: " + coor[i][2]);
+			bool = coor[i][2] == 0;
+			bool2 = coor[i][2] == 1;
 			for(var j=0; j<palabras[i].length; j++){
 				if(bool){
 					a = coor[i][1]+j;
