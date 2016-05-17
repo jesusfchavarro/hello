@@ -94,7 +94,7 @@ function clicked(d) {
   }
   // Highlight the clicked province
   mapLayer.selectAll('path')
-    .style({ fill: function(d){return centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return (centered == null ? "1" : "0") + (d==centered ? "1" : "0");} });
+    .style({ fill: function(d){return centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return (centered == null ? "1" : "0") + (d==centered ? "1" : "0.5");} });
   // Zoom
   g.transition()
     .duration(750)
