@@ -1,0 +1,172 @@
+ /*
+ para quitar algunos atributos por defecto del body y del html
+ */
+
+ body, html {
+	font-family: 'Lato', sans-serif;
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	color: #1c424d;
+	margin: 0px
+}
+
+nav{
+  display: block;
+  height: 45px;
+}
+
+/*
+para la barra de navegacion
+le quito el punto que es por defecto y le la dejo sin margin y paddin
+*/
+ul{
+	width: 100%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+/*
+ para la barra de navegacion segui las indicaciones de w3school
+ www.w3school.com/css/css_navbar.asp
+ le asigno el color de fondo
+ y dejo la posicion fija para siempre tenerla visible en la parte de arriba
+ */
+
+nav ul {
+	background-color: #092E36;
+	position: fixed;
+	display: block;
+	top: 0px;
+	z-index: 10;
+
+}
+
+/*
+atributos del icono "?" que aparece en la barra de navegacion
+*/
+#q{
+	margin: 0px;
+	max-width: 17.2px;
+}
+
+/*
+atributos para mantener el simbolo en la parte derecha
+*/
+
+#about{
+	float: right;
+	max-width: 45px;
+	max-height: 45px;
+}
+
+/*
+el atributo float es para que se ajusten automaticamente a las izquiera
+text-transform para que siempre aparezca en mayuscula
+*/
+
+li {
+    float: left;
+    text-transform: uppercase;
+}
+
+/*
+le quito la decoracion por defecto a los link y el tag i que uso para insertar iconos
+
+*/
+a, i{
+	display: block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+/*
+ajusta solo para los link de la barra de navegacion
+*/
+nav li a {
+  font-family:  "Lucida Console", Monaco, monospace;
+  padding: 14px 16px;
+}
+
+/*
+efecto para cuando se pone el cursor sobre los botones de la barra de navegacion
+uso del selecton :not
+http://www.w3schools.com/cssref/sel_not.asp
+*/
+
+nav li a:hover:not(.active) {
+	opacity: 1;
+    background: #222;
+}
+
+/*
+para quitar la imposibilidad de agragar fuentes raras a las paginas
+se tiene este comando para poder importarlas
+*/
+
+@font-face{
+   font-family: Bodoni MT;
+   src: url("../fonts/BOD_I.TTF");
+}
+
+@font-face{
+   font-family: Kanover;
+   src: url("../fonts/Kanover.ttf");
+}
+
+.background {
+  fill: #eee;
+  pointer-events: all;
+}
+
+body{
+  margin: 0px;
+}
+
+.map-layer {
+  fill: #fff;
+  stroke: #aaa;
+}
+
+.effect-layer{
+  pointer-events:none;
+}
+
+text{
+  font-family:'Lora', serif;
+  font-weight: 300;
+}
+
+text.big-text{
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.effect-layer text, text.dummy-text{
+  font-size: 12px;
+}
+
+canvas{
+  color: #FFF;
+  position: relative;
+  float: left;
+  display: inline;;
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+svg{
+  position: relative;
+  float: right;
+  display: inline;;
+  box-sizing: border-box;
+  margin: 0px;
+}
+#contenido{
+  display: block;
+  margin: auto;
+  width: 1000px;
+  height: 500px;
+}

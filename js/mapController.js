@@ -18,8 +18,8 @@ var path = d3.geo.path()
   .projection(projection);
 // Set svg width & height
 var svg = d3.select('svg')
-  .attr('width', width)
-  .attr('height', height);
+  .attr('width', 500)
+  .attr('height', 500);
 // Add background
 svg.append('rect')
   .attr('class', 'background')
@@ -65,12 +65,12 @@ function desaparecer(d) {
 
 // Get province name
 function nameFn(d){
-  return d && d.properties ? d.properties.AREA : null;
+  return d && d.properties ? d.properties.NOMBRE_DPT : null;
 }
 // Get province name length
 function nameLength(d){
   var n = nameFn(d);
-  return n ? n : 0;
+  return n ? n.length : 0;
 }
 // Get province color
 function fillFn(d){
