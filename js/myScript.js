@@ -2,9 +2,8 @@
 *lib es la libreria usadar por CreateJS en Animate CC
 *scene es la escena en la cual se esta trabajando
 *palabra es una string que determina la palabra a descubrir
-*numeroIntentos es es numero maximo de intentos posibles
 */
-function playAhorcado(lib, scene, palabra, numeroIntentos){
+function playAhorcado(lib, scene, palabra){
 	var lin = {}; // array para guardar las lineas agregadas por codigo al juego
 	var intentoFallido = 0 // variable para contar los intentos considerados no correctos
 	, intentosNoFallidos = 0;// variable para contar los intentos correctos
@@ -69,10 +68,10 @@ if (!isCorrect(character1)) { //si el caracter no esta en la palabra
 	lin['wrong_' + intentoFallido].letter.text = character1;// se asigna el caracter que no esta en la palabra para visualizar
 	scene.addChild(lin['wrong_' + intentoFallido]); //se agrega a la scene para que lo muestre
 	intentoFallido++;//se aumenta en 1 los intentos fallidos
-	scene.hang.gotoAndStop(intentoFallido+(palabra.length - numeroIntentos));//el objeto hang es una movieClip con sus propios frames, asi se va dibujando el ahorcado cada vez que falla
+	scene.hang.gotoAndStop(intentoFallido);//el objeto hang es una movieClip con sus propios frames, asi se va dibujando el ahorcado cada vez que falla
 	scene.hang.visible = true; //como estaba no visible se le asigna true para poder visualizarlo
 }
-if (intentoFallido == numeroIntentos) { //si el numero de fallos es igual al numero de intentos permitidos
+if (intentoFallido == 7) { //si el numero de fallos es igual al numero de intentos permitidos
 	finishGame();// se termina el juego
 	scene.gotoAndStop(scene.currentFrame+1);//se va a la siguiente frame
 }else if(intentosNoFallidos == palabra.length){//si el intento de intentos exitosos son iguales a la longitud de la palabra
@@ -100,7 +99,7 @@ function playSopa(lib, scene, palabras, coor){
 	for (var i = 0; i < 13; i++) {
 		matriz[i] = new Array(13);
 	}
-	
+
 	for (var i = 0; i < 13; i++) {//se recorre las filas de la matriz
 		for (var j = 0; j < 13; j++) {//se recorre las columnas de cada fila de la matriz
 			scene.addChild(casilla(abc.charAt(random(abc.length)), i, j));//se agraga como hijo de scene para que se visualize,

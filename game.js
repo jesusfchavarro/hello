@@ -9,7 +9,7 @@ lib.properties = {
 	fps: 24,
 	color: "#FFFFFF",
 	manifest: [
-		{src:"images/background1.png?1463477280620", id:"background1"}
+		{src:"images/background1.png?1463620380390", id:"background1"}
 	]
 };
 
@@ -83,9 +83,9 @@ p.nominalBounds = new cjs.Rectangle(0,-63.7,38.1,88);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer 1
-	this.text = new cjs.Text("A ", "bold 25px 'Leelawadee'", "#4C4C4C");
+	this.text = new cjs.Text("A ", "25px 'Arial'", "#4C4C4C");
 	this.text.textAlign = "center";
-	this.text.lineHeight = 32;
+	this.text.lineHeight = 30;
 	this.text.lineWidth = 31;
 	this.text.setTransform(0,0,0.989,1);
 
@@ -302,7 +302,6 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 
 	// timeline functions:
 	this.frame_0 = function() {
-		this.gotoAndStop(4);
 		this.stop();
 		var scene = this;
 		var lin = {};
@@ -329,7 +328,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 	this.frame_1 = function() {
 		this.stop();
 		var scene = this;
-		playAhorcado(lib,scene,"Bogota",6);
+		playAhorcado(lib,scene,"Bogota");
 	}
 	this.frame_2 = function() {
 		var scene = this;
@@ -373,7 +372,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 	this.text1.textAlign = "center";
 	this.text1.lineHeight = 49;
 	this.text1.lineWidth = 285;
-	this.text1.setTransform(152.1,133.3,0.833,0.833);
+	this.text1.setTransform(153.1,133.3,0.833,0.833);
 
 	this.shape = new cjs.Shape();
 	this.shape.graphics.f("#4C4C4C").s().p("AARAmIAAgCQAEgBAAgDIgCgGIgEgHIghAAIgEAIIgCAFQABADAEABIAAACIgcAAIAAgCIAEgCIACgEIAcg3IACgGQAAgCgEgCIAAgCIAcAAIAAACQgDACAAADIABAFIAdA1IAEAGQAAAAABAAQAAABAAAAQABAAABAAQAAABABAAIAAACgAgNAIIAXAAIgLgXg");
