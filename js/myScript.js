@@ -3,7 +3,7 @@
 *scene es la escena en la cual se esta trabajando
 *palabra es una string que determina la palabra a descubrir
 */
-function playAhorcado(lib, scene, palabra){
+function playAhorcado(lib, scene, palabra,siguienteFrame){
 	var lin = {}; // array para guardar las lineas agregadas por codigo al juego
 	var intentoFallido = 0 // variable para contar los intentos considerados no correctos
 	, intentosNoFallidos = 0;// variable para contar los intentos correctos
@@ -75,6 +75,8 @@ if (intentoFallido == 7) { //si el numero de fallos es igual al numero de intent
 	finishGame();// se termina el juego
 	scene.gotoAndStop(scene.currentFrame+1);//se va a la siguiente frame
 }else if(intentosNoFallidos == palabra.length){//si el intento de intentos exitosos son iguales a la longitud de la palabra
+	DepartamentosDescubiertos.push(palabra == "BOGOTA" ? "BOGOTA D.C" : palabra);
+	console.log(DepartamentosDescubiertos);
 	finishGame();//se termina el juego
 	scene.gotoAndStop(scene.currentFrame+2);//salta 2 frames
 }
@@ -131,9 +133,14 @@ function playSopa(lib, scene, palabras, coor){
 					b = coor[i][0]+j;//asigno a la coordenada de la fila + j
 					matriz[b][coor[i][1]].text.text = palabras[i].charAt(j);// a la matriz se le asigna el caracter j-esimo siempre en la columna coor[i][0] y se cambia la fila hasta j=tamaño de la palabra
 				}else{//diagonal
-					a = coor[i][1]+j;//asigno a la coordenada de la columna + j
-					b = coor[i][0]+j;//asigno a la coordenada de la fila + j
-					matriz[b][a].text.text = palabras[i].charAt(j);//// a la matriz se le asigna el caracter j-esimo y se cambia la fila y la columna hasta j=tamaño de la palabra
+						if(palabras[i].charAt(j) != ' '){
+						a = coor[i][1]+j;//asigno a la coordenada de la columna + j
+						b = coor[i][0]+j;//asigno a la coordenada de la fila + j
+						matriz[b][a].text.text = palabras[i].charAt(j);//// a la matriz se le asigna el caracter j-esimo y se cambia la fila y la columna hasta j=tamaño de la palabra
+					}
+				}
+				if(j==12){
+					break;
 				}
 			}
 		}
@@ -197,13 +204,18 @@ function playSopa(lib, scene, palabras, coor){
 		}
 		if(encontrada()){//si se completa una palabra
 			palabras.splice(palabras.indexOf(palabraFormada), 1); //se elimina la palabra del array de palabras
+			DepartamentosDescubiertos.push(palabraFormada);
 			palabraFormadaNode = [];//se vacia el array
 			palabraFormadaCoor = [];//se vacia el array
 			palabraFormada = "";//se vacia la string
+			DepartamentosDescubiertos.push(palabraFormada);
+			mapLayer.selectAll('path')
+				.style('fill', function(d){return descubierto(d) && centered && d===centered ? '#D5708B' : fillFn(d);});
+			console.log(DepartamentosDescubiertos);
 		}
 		if(palabras.length == 0){//si el array de palabras esta vacio se termina el juego
 			scene.removeAllChildren();//se borran todas las letras de la sopa
-			scene.gotoAndStop(scene.currentFrame + 1);//se va a la siguiente frame
+			scene.gotoAndStop(siguienteFrame);//se va a la siguiente frame
 		}
 	}
 }

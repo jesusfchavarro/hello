@@ -4,7 +4,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Descubre Colombia</title>
+<script>
+	var palabrasAhoracado = ["CAQUETA" ,"GUAJIRA","QUINDIO","SANTANDER", "CASANARE"];
+	var palabrasSopa = [
+		["CHOCO", "META", "QUINDIO", "HUILA", "BOYACA", "ARAUCA"],
+		["ANTIOQUIA","ATLANTICO","BOLIVAR","CALDAS","SAN ANDRES"],
+		["CAUCA","CESAR","CORDOBA","CUNDINAMARCA"],
+		["MAGDALENA","NARIÑO","NORTE DE SANTANDER","RISARALDA"],
+		["SUCRE","TOLIMA","VALLE DEL CAUCA","PUTUMAYO"],
+		["AMAZONAS","GUAINIA","GUAVIARE","VAUPES","VICHADA"]
+	];
 
+	//NORTE DE SANTANDER, VALLE DEL CAUCA,
+	// el array coor sera un array de arrays, cada sub-array tendra el siguiente formato
+	// [i, j, D]
+	// i sera la fila donde se asignara la primera letra
+	// j sera la columna donde se asignara la primera letra
+	// D es la direccion, donde 0 es horizontal,1 vertical y cualquier otro numero diagonal
+
+	var coordenadasSopa = [
+		[[3, 7, 1], [12, 2, 0], [1, 1, 2], [1, 2, 1], [10, 2, 0], [0, 7 ,2]],
+		[[0, 0, 0], [0, 0, 1], [1, 1, 2], [12, 4, 0],[1, 4, 2]],
+		[[0, 0, 0], [3, 8, 0], [11, 5, 0], [0, 0, 2]],
+		[[5, 2, 0], [4, 3, 1], [0, 0, 2], [12, 0, 0]],
+		[[0, 4, 0], [12, 7, 0], [0, 0, 2], [12, 12, 1]],
+		[[12, 2, 0], [2, 2, 0], [1, 3, 1], [4, 4, 0], [4, 4, 1]],
+	];
+
+	var levelAhorcado = 0;
+	var leverSopa = 0;
+	var DepartamentosDescubiertos = [];
+</script>
 <script src="js/myScript.js"></script>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 <script src="game.js"></script>

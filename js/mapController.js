@@ -8,7 +8,7 @@ var width = 500,
 var color = d3.scale.linear()
   .domain([1, 20])
   .clamp(true)
-  .range(['#FFF', '#D00']);
+  .range(['#00ffff', '#000d1a']);
 
 var projection = d3.geo.mercator()
   .scale(1500)//define la escala
@@ -26,6 +26,7 @@ svg.append('rect')
   .attr('class', 'background')
   .attr('width', width)
   .attr('height', height)
+  .style({"fill" : "#D0D0D0"})
   .on('click', clicked);
 //agrega una etiqueta g al svg
 // una etiqueta g en SVG define un grupo
@@ -58,7 +59,7 @@ d3.json(mapDirection, function(error, mapData) {
       .attr('d', path)
       .attr('vector-effect', 'non-scaling-stroke')
       //{ fill: function(d){return centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return (centered == null ? "1" : "0") + (d==centered ? "1" : "0.5");} }
-      .style({'fill': fillFn, opacity: function(d){return nameFn(d) == "BOGOTA D.C" ? 1 : 0}})
+      .style({'fill': fillFn, opacity: function(d){return descubierto(d) ? 1 : 0}})
       .on('mouseover', mouseover)//agrega la funcion mouseover con el evento 'mouseover'
       .on('mouseout', mouseout)//agrega la funcion mouseout con el evento 'mouseout'
       .on('click', clicked);////agrega la funcion clicked con el evento 'click'
@@ -77,50 +78,57 @@ function area(d){
 function fillFn(d){
   return color(area(d));
 }
+
+//revisa si esta en el array de departamentos descubiertos
+function descubierto(d){
+  console.log("d: " + nameFn(d));
+  console.log("departa: " + DepartamentosDescubiertos);
+  return DepartamentosDescubiertos && (DepartamentosDescubiertos.indexOf(nameFn(d)) > -1);
+}
 // cuando se clickea, se hace zoom
 function clicked(d) {
-  var x, y, k;
-  if (d && centered !== d) {//si existe d y no esta centrada
-    var centroid = path.centroid(d);
-    x = centroid[0];
-    y = centroid[1];//se centra
-    k = 4;//se asigna 4 a k, esta variable se usa para hace la escala o el zoom
-    centered = d;//se le asigna d a centered
-  } else {
-    x = width / 2;
-    y = height / 2;//se centra de nuevo todo colombia
-    k = 1;//se vuelve a la escala 1
-    centered = null;// se asigna null a centered
+  if(descubierto(d)){
+    var x, y, k;
+    if (d && centered !== d) {//si existe d y no esta centrada
+      var centroid = path.centroid(d);
+      x = centroid[0];
+      y = centroid[1];//se centra
+      k = 4;//se asigna 4 a k, esta variable se usa para hace la escala o el zoom
+      centered = d;//se le asigna d a centered
+    } else {
+      x = width / 2;
+      y = height / 2;//se centra de nuevo todo colombia
+      k = 1;//se vuelve a la escala 1
+      centered = null;// se asigna null a centered
+    }
+    // se le asigna un color diferente al departamento clickeado
+    //y a todos los demas departamentos se les asigna una opacity de 0.5
+    mapLayer.selectAll('path')
+      .style({ fill: function(d){return descubierto(d) && centered && d===centered ? '#ff4d11' : fillFn(d);}, opacity: function(d){return ((descubierto(d) && (centered == null)) ? "1" : "0") + ((descubierto(d)&& (d==centered)) ? "1" : "0.3");}});
+    // Zoom
+    g.transition()
+      .duration(750)// lo que dura la animacion o transicion del zoom
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');//se le asignan las variables para centrar el departemento y escalar todo el mapa
   }
-  // se le asigna un color diferente al departamento clickeado
-  //y a todos los demas departamentos se les asigna una opacity de 0.5
-  mapLayer.selectAll('path')
-    .style({ fill: function(d){return centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return (centered == null ? "1" : "0") + (d==centered ? "1" : "0.5");} });
-  // Zoom
-  g.transition()
-    .duration(750)// lo que dura la animacion o transicion del zoom
-    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');//se le asignan las variables para centrar el departemento y escalar todo el mapa
 }
 //funcion que se acciona cuando el puntero esta sobre un departamento
 function mouseover(d){
-  // cambia el color del departamento
-  d3.select(this).style({fill:'orange'});
-  //se le asigna el contenido y la fuente lora al texto mostrado en el mapa
-  bigText
-    .style('font-family', "Lora")
-    .text(nameFn(d));
-
+  if(descubierto(d)){
+    // cambia el color del departamento
+    d3.select(this).style({fill:'#e65c00', opacity: function(d){return descubierto(d) ? 1 : 0}});
+    //se le asigna el contenido y la fuente lora al texto mostrado en el mapa
+    bigText
+      .style('font-family', "Lora")
+      .text(nameFn(d));
+  }
 }
 //funcion que se acciona cuando el puntero deja de estar sobre un departamento
 function mouseout(d){
-  // se le asigna el color normal al departamento
-  mapLayer.selectAll('path')
-    .style('fill', function(d){return centered && d===centered ? '#D5708B' : fillFn(d);});
-  // limpia el texto
-  bigText.text('');
-
+  if(descubierto(d)){
+    // se le asigna el color normal al departamento
+    mapLayer.selectAll('path')
+      .style({'fill', function(d){return descubierto(d) && centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return descubierto(d) ? 1 : 0;}});
+    // limpia el texto
+    bigText.text('');
+    }
 }
-
-// se le asginan a todos los departamentos la propiedad CSS opacity a 0 excepto a Bogota
-  mapLayer.selectAll('path')
-    .style('opacity', 1/*function(d){return nameFn(d) == "BOGOTA D.C" ? "1" : "0"}*/);
