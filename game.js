@@ -51,7 +51,7 @@ p.nominalBounds = new cjs.Rectangle(0,51.2,496,475.5);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer 1
-	this.text = new cjs.Text("En la siguiente\nsopa de letras\nestan ocultos x\ndepartementos...\nsuerte \n\nPlay! ", "56px 'Copperplate Gothic Bold'", "#454545");
+	this.text = new cjs.Text("En la siguiente\nsopa de letras\nestan ocultos" + palabrasSopa[palabrasSopa.length-1].length + "\ndepartementos...\nsuerte \n\nPlay! ", "56px 'Copperplate Gothic Bold'", "#454545");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 64;
 	this.text.lineWidth = 595;
@@ -529,41 +529,41 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 		this.stop();
 		scene = this;
 		var lin = {};
-		
-		
-		 
+
+
+
 		//play1.removeAllEventListeners('click');
 		this.play1.addEventListener('click', function () {
-			scene.gotoAndStop(scene.currentFrame+4);
+			scene.gotoAndStop(scene.currentFrame+1);
 		});
-		
+
 		this.tryAgain.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame-1);
-			
+
 		});
-		
+
 		this.goto4.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});
-		
+
 		scene.play2.addEventListener('click', function (){
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});
-		
-		
+
+
 		scene.goo.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});
-		
+
 		this.returnTo.addEventListener('click', function () {
 			scene.returnTo.visible = false;
 			scene.gotoAndStop(5);
 		});
-		
-		
+
+
 		this.goto6.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame+1);
 		});
@@ -575,18 +575,18 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 	}
 	this.frame_2 = function() {
 		scene = this;
-		
+
 		/*this.tryAgain.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame-1);
-			
+
 		});*/
 	}
 	this.frame_3 = function() {
 		scene = this;
-		
+
 		/*this.goto4.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});*/
 	}
 	this.frame_4 = function() {
@@ -594,18 +594,18 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 		/*
 		scene.play2.addEventListener('click', function (){
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});*/
 	}
 	this.frame_5 = function() {
 		scene = this;
 		scene.play2.visible = false;
 		var palabras = palabrasSopa.pop();//["CHOCO", "META", "QUINDIO", "HUILA", "BOYACA", "ARAUCA"];
-		var coor = coordenadasSopa.pop(); /*	[[3, 7, 1], 
-								[12, 2, 0], 
-								[1, 1, 2], 
-								[1, 2, 1], 
-								[10, 2, 0], 
+		var coor = coordenadasSopa.pop(); /*	[[3, 7, 1],
+								[12, 2, 0],
+								[1, 1, 2],
+								[1, 2, 1],
+								[10, 2, 0],
 								[0, 7 ,2]];*/
 		playSopa(lib,scene,palabras,coor);
 	}
@@ -614,7 +614,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 		/*
 		scene.goo.addEventListener('click', function () {
 			scene.gotoAndStop(scene.currentFrame+1);
-			
+
 		});*/
 	}
 	this.frame_7 = function() {

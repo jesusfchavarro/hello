@@ -1,44 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Descubre Colombia</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="icons/font/flaticon.css">
-  <link rel="stylesheet" type="text/css" href="style/main.css">
-  </head>
-<body id="home">
+<meta charset="utf-8">
+<title>Descubre Colombia</title>
+<link rel="stylesheet" type="text/css"
+href="https://fonts.googleapis.com/css?family=Lora:700">
+<link rel="stylesheet" type="text/css" href="icons/font/flaticon.css">
+<link rel="stylesheet" type="text/css" href="style/main.css">
+<style>
+  svg{
+    margin: 0px;
+    display: inline;
+    box-sizing: border-box;
+  }
+
+  #texto{
+    padding: 20px;
+    width: 460px;
+    display: inline;
+
+  }
+
+  h6{
+    font-family: sans-serif;
+    font-size: 22px;
+    margin: 0px;
+  }
+
+  p{
+    font-family: sans-serif;
+  }
+
+  @media screen and (max-width : 1000px){
+    #texto{
+      width: 460px;
+      margin: auto;
+      display: block;
+      box-sizing: border-box;
+      float: none;
+
+    }
+
+    #contenido{
+    display: block;
+
+    margin: auto;
+    width: 500px;
+    float: none;
+    }
+  }
+
+
+</style>
+</head>
+<body>
   <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="mapa.html">Map</a></li>
-      <li id="about"><a a href="#"><img id="q" src="images/!.gif"></a></li>
-    </ul>
-  </nav>
-  <div class="about">
-    <h3>Site's map</h3>
-    <b>
-    <ul class="list">
-      <li>
-        <a href="index.html">Home</a>
-        <ul class="list">
-          <li><a href="index.html">Guitar</a></li>
-          <li><a href="mapa.html">Piano</a></li>
-          <li><a href="#">Violin</a></li>
-        </ul>
-      </li>
-      <li><a href="#">About</a></li>
-    </ul>
-    </b>
-    <h3>Sources:</h3>
-      <a href="http://fullhdpictures.com/">Backgrounds</a>
-      <a href="http://www.wallpaperup.com/">Backgrounds 2</a>
-      <a href="http://www.freepik.com/">Icons and vector graphics</a>
-      <a href="http://www.brainyquote.com/">Quotes</a>
-      <a href="https://en.wikipedia.org/">Information</a>
-    <h3>Desing by:</h3>
-      <p>
-         Jesus Felipe Chavarro Muñoz<br>
-         Universidad Naciona de Colombia<br>
-         Estudiante de pregrado de ingenieria de sistemas
-      </p>
+		<ul>
+			<li><a href="index.html">Home</a></li>
+			<li><a href="about.html">About</a></li>
+			<li id="about"><a a href="info.html"><img id="q" src="images/!.gif"></a></li>
+		</ul>
+	</nav>
+  <div id="contenido">
+    <svg></svg>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="js/mapOriginal.js"></script>
+    <div id="texto">
+      <h6>Instrucciones</h6>
+      <p>Se tienen 2 juegos, uno es un ahorcado(hangman en ingles) y el otro es una sopa de letras, en cada nivel se esconde un departamento, uno por uno iran aparecioendo para el final por fin completar todo el mapa de Colombia.</p>
+      <p>Advertencia: En la sopa de letras para descubrir un departamento se tiene que precionar letra por letra en orden hasta colorear toda la palabra, cuando esta este completa, aparecera en el mapa.</p>
+      <h6>Informacion</h6>
+      <p>Este proyecto se hizo como una herramienta pedagogica de facil edicion y extension, esto quiere decir que resulta facil agregar un juego, cambiar un juego o cambiar el mapa o region a descubrir</p>
+      <p>El proyecto se realizo con las librerias D3.js y createjs, y con el software adobe animate CC</p>
+    </div>
   </div>
+
+</body>
