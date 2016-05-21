@@ -11,6 +11,8 @@
 }
 
 nav{
+  width: 1000px;
+  margin: auto;
   display: block;
   height: 45px;
 }
@@ -20,7 +22,7 @@ para la barra de navegacion
 le quito el punto que es por defecto y le la dejo sin margin y paddin
 */
 ul{
-	width: 100%;
+	width: inherit;;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -77,7 +79,7 @@ le quito la decoracion por defecto a los link y el tag i que uso para insertar i
 */
 a, i{
 	display: block;
-  color: white;
+  color: #FFF;
   text-align: center;
   text-decoration: none;
 }
@@ -116,8 +118,13 @@ se tiene este comando para poder importarlas
    src: url("../fonts/Kanover.ttf");
 }
 
+@font-face{
+   font-family: Copperplate Gothic Bold;
+   src: url("../fonts/copperplate.ttf");
+}
+
 .background {
-  fill: #eee;
+  fill: #FFF;
   pointer-events: all;
 }
 
@@ -169,4 +176,29 @@ svg{
   margin: auto;
   width: 1000px;
   height: 500px;
+}
+
+@media screen and (max-width : 1000px){
+  canvas{
+    margin: auto;
+    width: 500px;
+    display: block;
+    float: none;
+    box-sizing: border-box;
+
+  }
+
+  svg{
+    width: 500px;
+    margin: auto;
+    display: block;
+    box-sizing: border-box;
+    float: none;
+  }
+
+  #contenido{
+  display: block;
+  margin: auto;
+  width: auto;
+  }
 }
