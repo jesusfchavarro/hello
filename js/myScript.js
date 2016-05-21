@@ -181,7 +181,7 @@ function playSopa(lib, scene, palabras, coor){
 			if("SANANDRES" == palabras[i]){
 					DepartamentosDescubiertos.push("SAN ANDRES Y PROVIDENCIA");
 					return true
-			}else if(palabras[i].replace(/\s+/g, '') == palabraFormada || palabras[i].replace(/\s+/g, '').includes( palabraFormada )){
+			}else if(palabras[i].replace(/\s+/g, '') == palabraFormada){
 				palabraFormada = palabras[i];
 			}
 			if (palabras[i] == palabraFormada) {//si la palabra que ha estado formando es igual a la palabra i
