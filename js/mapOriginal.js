@@ -47,9 +47,10 @@ var bigText = g.append('text')
   .classed('big-text', true)
   .attr('x', 20)
   .attr('y', 45);
+  var mapDirection = "http://jesusfchavarro.github.io/hello/Colombia.geo.json";
 
 // Load map data
-d3.json('colombia.geo.json', function(error, mapData) {
+d3.json(mapDirection, function(error, mapData) {
   var features = mapData.features;
 
   // Update color scale domain based on data

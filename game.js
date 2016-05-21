@@ -51,7 +51,7 @@ p.nominalBounds = new cjs.Rectangle(0,51.2,496,475.5);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer 1
-	this.text = new cjs.Text("En la siguiente\nsopa de letras\nestan ocultos" + palabrasSopa[palabrasSopa.length-1].length + "\ndepartementos...\nsuerte \n\nPlay! ", "56px 'Copperplate Gothic Bold'", "#454545");
+	this.text = new cjs.Text("En la siguiente\nsopa de letras\nestan ocultos " + palabrasSopa[palabrasSopa.length-1].length + "\ndepartementos...\nsuerte \n\nPlay! ", "56px 'Copperplate Gothic Bold'", "#454545");
 	this.text.textAlign = "center";
 	this.text.lineHeight = 64;
 	this.text.lineWidth = 595;
@@ -891,7 +891,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-5,174,109);
 	this.returnTo.setTransform(250,275,1,1,0,0,0,250,225.1);
 	new cjs.ButtonHelper(this.returnTo, 0, 1, 1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.play1},{t:this.text_1},{t:this.instance_6},{t:this.text,p:{x:177.9,y:408.9,text:"H   N G M   N",font:"60px 'Kanover'",lineHeight:64.95,lineWidth:356}},{t:this.instance_5},{t:this.instance_4},{t:this.instance_3},{t:this.instance_2},{t:this.instance_1},{t:this.instance}]}).to({state:[]},1).to({state:[{t:this.play2}]},3).to({state:[]},1).to({state:[{t:this.play1},{t:this.text,p:{x:145.7,y:49.6,text:"Solo x\ndepartamentos\npor\ndescubrir! ",font:"45px 'Kanover'",lineHeight:49.2,lineWidth:228}}]},2).to({state:[]},1).to({state:[{t:this.returnTo}]},3).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.play1},{t:this.text_1},{t:this.instance_6},{t:this.text,p:{x:177.9,y:408.9,text:"H   N G M   N",font:"60px 'Kanover'",lineHeight:64.95,lineWidth:356}},{t:this.instance_5},{t:this.instance_4},{t:this.instance_3},{t:this.instance_2},{t:this.instance_1},{t:this.instance}]}).to({state:[]},1).to({state:[{t:this.play2}]},3).to({state:[]},1).to({state:[{t:this.play1},{t:this.text,p:{x:145.7,y:49.6,text:"Solo unos\ndepartamentos\npor\ndescubrir! ",font:"45px 'Kanover'",lineHeight:49.2,lineWidth:228}}]},2).to({state:[]},1).to({state:[{t:this.returnTo}]},3).wait(1));
 
 	// gameOver
 	this.tryAgain = new lib.tryAgain();
