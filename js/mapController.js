@@ -81,8 +81,6 @@ function fillFn(d){
 
 //revisa si esta en el array de departamentos descubiertos
 function descubierto(d){
-  console.log("d: " + nameFn(d));
-  console.log("departa: " + DepartamentosDescubiertos);
   return DepartamentosDescubiertos && (DepartamentosDescubiertos.indexOf(nameFn(d)) > -1);
 }
 // cuando se clickea, se hace zoom
@@ -104,7 +102,7 @@ function clicked(d) {
     // se le asigna un color diferente al departamento clickeado
     //y a todos los demas departamentos se les asigna una opacity de 0.5
     mapLayer.selectAll('path')
-      .style({ fill: function(d){return descubierto(d) && centered && d===centered ? '#ff4d11' : fillFn(d);}, opacity: function(d){return ((descubierto(d) && (centered == null)) ? "1" : "0") + ((descubierto(d)&& (d==centered)) ? "1" : "0.3");}});
+      .style({ fill: function(d){return descubierto(d) && centered && d===centered ? '#ff4d11' : fillFn(d);}});
     // Zoom
     g.transition()
       .duration(750)// lo que dura la animacion o transicion del zoom
@@ -127,7 +125,7 @@ function mouseout(d){
   if(descubierto(d)){
     // se le asigna el color normal al departamento
     mapLayer.selectAll('path')
-      .style({'fill', function(d){return descubierto(d) && centered && d===centered ? '#D5708B' : fillFn(d);}, opacity: function(d){return descubierto(d) ? 1 : 0;}});
+      .style({fill : function(d){return (descubierto(d) && centered && d===centered) ? '#D5708B' : fillFn(d);}, opacity: function(d){return descubierto(d) ? 1 : 0;}});
     // limpia el texto
     bigText.text('');
     }

@@ -3,22 +3,23 @@
 *scene es la escena en la cual se esta trabajando
 *palabra es una string que determina la palabra a descubrir
 */
-function playAhorcado(lib, scene, palabra,siguienteFrame){
+function playAhorcado(lib, scene, palabra){
 	var lin = {}; // array para guardar las lineas agregadas por codigo al juego
 	var intentoFallido = 0 // variable para contar los intentos considerados no correctos
 	, intentosNoFallidos = 0;// variable para contar los intentos correctos
 	scene.hang.visible = false;//hago no visible a la movie clip que representa al ahorcado
 	scene.text1.visible = true;//hago visible el texto guia del inicio del juego
+	scene.hang.gotoAndStop(0);//se reinicia la animacion del ahorcado
 	for (var i = 0; i < palabra.length; i++) {
 		//charAt es una funcion propia de JS que retorna el caracter en la posicion i, la primera posicion es 0
 		var charAt = palabra.charAt(i);
 		if (charAt != ' ') { //si es un caracter de espacio se omite
-			lin['line_' + i] = new lib.line("synched", 0); //se instancia un nuevo objeto line en el array lin
-			lin['line_' + i].name = "letter" + i; //se le asigna el nombre "letter" + i al objeto
-			lin['line_' + i].setTransform(40 + (30 + 50 * i), 475, 1, 1, 0, 0, 0, 19, 2.5); //esta funcion puede trasladar o rotar un objeto de CreateJS
+			lin['l_' + i] = new lib.line("synched", 0); //se instancia un nuevo objeto line en el array lin
+			lin['l_' + i].name = "letter" + i; //se le asigna el nombre "letter" + i al objeto
+			lin['l_' + i].setTransform(40 + (30 + 50 * i), 475, 1, 1, 0, 0, 0, 19, 2.5); //esta funcion puede trasladar o rotar un objeto de CreateJS
 			//mas informacion: http://www.createjs.com/docs/easeljs/classes/DisplayObject.html#method_setTransform
-			lin['line_' + i].letter.text = ' '; // se le asigna a la propiedad texto un caracter espacio para que la palabra no aparesca en el layout
-			scene.addChild(lin['line_' + i]);//a la escena se le agrega al objeto instanciado para que este lo recozca y lo agregre al layout
+			lin['l_' + i].letter.text = ' '; // se le asigna a la propiedad texto un caracter espacio para que la palabra no aparesca en el layout
+			scene.addChild(lin['l_' + i]);//a la escena se le agrega al objeto instanciado para que este lo recozca y lo agregre al layout
 		}
 	}
 	/*
@@ -43,7 +44,8 @@ function playAhorcado(lib, scene, palabra,siguienteFrame){
 	//finaliza el juego
 	function finishGame(){
 		for(var i=0; i < palabra.length; i++) { // remueve todas las lineas y caracteres que se tiene desde el inicio
-			scene.removeChild(lin['line_' + i]);
+			console.log(lin['l_' + i].text);
+			scene.removeChild(lin['l_' + i]);
 		}
 		for( ; intentoFallido >= 0; intentoFallido--){//remueve todas las lineas y caracteres que se fueron agregando en los intentos fallidos
 			scene.removeChild(lin[['wrong_' + intentoFallido]]);
@@ -57,30 +59,31 @@ function playAhorcado(lib, scene, palabra,siguienteFrame){
 		var a ;
 		if(intentoFallido > 2){ //si se tiene mas de 2 intentos fallidos se cambia la posicion en "y", en los siguientes intentos fallidos
 		a = 300;
-	}else if(intentoFallido > 4){//si se tiene mas de cuatro se cambia la posicion en "y", en los siguientes intentos fallidos
-	a = 380;
-}else{
-	a = 220;//el caso dafault para la posicion en "y"
-}
-if (!isCorrect(character1)) { //si el caracter no esta en la palabra
-	lin['wrong_' + intentoFallido] = new lib.line("synched", 0); //se crea un nuevo objeto line
-	lin['wrong_' + intentoFallido].setTransform(80 + (80 * (intentoFallido % 3)), a, 1, 1, 0, 0, 0, 19, 2.5); //se pocisiona, cada 3 intentos incorrectos salta de linea
-	lin['wrong_' + intentoFallido].letter.text = character1;// se asigna el caracter que no esta en la palabra para visualizar
-	scene.addChild(lin['wrong_' + intentoFallido]); //se agrega a la scene para que lo muestre
-	intentoFallido++;//se aumenta en 1 los intentos fallidos
-	scene.hang.gotoAndStop(intentoFallido);//el objeto hang es una movieClip con sus propios frames, asi se va dibujando el ahorcado cada vez que falla
-	scene.hang.visible = true; //como estaba no visible se le asigna true para poder visualizarlo
-}
-if (intentoFallido == 7) { //si el numero de fallos es igual al numero de intentos permitidos
-	finishGame();// se termina el juego
-	scene.gotoAndStop(scene.currentFrame+1);//se va a la siguiente frame
-}else if(intentosNoFallidos == palabra.length){//si el intento de intentos exitosos son iguales a la longitud de la palabra
-	DepartamentosDescubiertos.push(palabra == "BOGOTA" ? "BOGOTA D.C" : palabra);
-	console.log(DepartamentosDescubiertos);
-	finishGame();//se termina el juego
-	scene.gotoAndStop(scene.currentFrame+2);//salta 2 frames
-}
-}
+		}else if(intentoFallido > 4){//si se tiene mas de cuatro se cambia la posicion en "y", en los siguientes intentos fallidos
+			a = 380;
+		}else{
+			a = 220;//el caso dafault para la posicion en "y"
+		}
+		if (!isCorrect(character1)) { //si el caracter no esta en la palabra
+			lin['wrong_' + intentoFallido] = new lib.line("synched", 0); //se crea un nuevo objeto line
+			lin['wrong_' + intentoFallido].setTransform(80 + (80 * (intentoFallido % 3)), a, 1, 1, 0, 0, 0, 19, 2.5); //se pocisiona, cada 3 intentos incorrectos salta de linea
+			lin['wrong_' + intentoFallido].letter.text = character1;// se asigna el caracter que no esta en la palabra para visualizar
+			scene.addChild(lin['wrong_' + intentoFallido]); //se agrega a la scene para que lo muestre
+			intentoFallido++;//se aumenta en 1 los intentos fallidos
+			scene.hang.gotoAndStop(intentoFallido);//el objeto hang es una movieClip con sus propios frames, asi se va dibujando el ahorcado cada vez que falla
+			scene.hang.visible = true; //como estaba no visible se le asigna true para poder visualizarlo
+		}
+		if (intentoFallido == 7) { //si el numero de fallos es igual al numero de intentos permitidos
+			finishGame();// se termina el juego
+			scene.gotoAndStop(scene.currentFrame+1);//se va a la siguiente frame
+		}else if(intentosNoFallidos == palabra.length){//si el intento de intentos exitosos son iguales a la longitud de la palabra
+			DepartamentosDescubiertos.push(palabra == "BOGOTA" ? "BOGOTA D.C" : palabra);
+			mapLayer.selectAll('path')
+			.style({ opacity : function(d){return descubierto(d)? 1 : 0}});
+			finishGame();//se termina el juego
+			scene.gotoAndStop(scene.currentFrame+2);//salta 2 frames
+		}
+	}
 }
 
 function playSopa(lib, scene, palabras, coor){
@@ -91,9 +94,9 @@ function playSopa(lib, scene, palabras, coor){
 	var palabraFormadaCoor = [],//arreglo que va guardando las coordenadas de la formada
 	palabraFormadaNode = [],//arreglo que va guardando los objetos que contienen las letras de la palabra formada en CreateJS
 	palabraFormada = "";//string que va guardando la palabra que se forma
-
+	DepartamentosDescubiertos.push(palabraFormada);
 	var colors = ["#ed3405", "#da5f0c", "#e19d00", "#f9c907"];//colores para seleccion al azar
-	color = "",//variable auxiliar para que una palabra quede con el mismo color
+	colortm = "",//variable auxiliar para que una palabra quede con el mismo color
 	auxColor = "#4C4C4C";//color por defecto de las letras
 
 	//crea una matriz o un arreglo de arreglos de 13x13 para manipular la sopa de letras en el codigo
@@ -121,25 +124,24 @@ function playSopa(lib, scene, palabras, coor){
 	// j sera la columna donde se asignara la primera letra
 	// D es la direccion, donde 0 es horizontal,1 vertical y cualquier otro numero diagonal
 	function ingresarPalabras(){
-		var bool, bool2, a, b;//variables temporales
+		var bool, bool2, a, b ;//variables temporales
 		for(var i=0; i<palabras.length; i++){//recorro el arreglo de palabras a ingresar
 			bool = coor[i][2] == 0;// si la direccion es 0, bool es true
 			bool2 = coor[i][2] == 1;// si la direccion es 1, bool2 es true
-			for(var j=0; j<palabras[i].length; j++){//recorro la palabra de la posicion i del arreglo
+			var sinEspacios = palabras[i].replace(/\s+/g, '');
+			for(var j=0; j<sinEspacios.length; j++){//recorro la palabra de la posicion i del arreglo
 				if(bool){//horizontal
 					a = coor[i][1]+j;//asigno a la coordenada de la columna + j
-					matriz[coor[i][0]][a].text.text = palabras[i].charAt(j);// a la matriz se le asigna el caracter j-esimo siempre en la fila coor[i][0] y se cambia la columna hasta j=tamaño de la palabra
+					matriz[coor[i][0]][a].text.text = sinEspacios.charAt(j);// a la matriz se le asigna el caracter j-esimo siempre en la fila coor[i][0] y se cambia la columna hasta j=tamaño de la palabra
 				}else if(bool2){//vertical
 					b = coor[i][0]+j;//asigno a la coordenada de la fila + j
-					matriz[b][coor[i][1]].text.text = palabras[i].charAt(j);// a la matriz se le asigna el caracter j-esimo siempre en la columna coor[i][0] y se cambia la fila hasta j=tamaño de la palabra
+					matriz[b][coor[i][1]].text.text = sinEspacios.charAt(j);// a la matriz se le asigna el caracter j-esimo siempre en la columna coor[i][0] y se cambia la fila hasta j=tamaño de la palabra
 				}else{//diagonal
-						if(palabras[i].charAt(j) != ' '){
 						a = coor[i][1]+j;//asigno a la coordenada de la columna + j
 						b = coor[i][0]+j;//asigno a la coordenada de la fila + j
-						matriz[b][a].text.text = palabras[i].charAt(j);//// a la matriz se le asigna el caracter j-esimo y se cambia la fila y la columna hasta j=tamaño de la palabra
-					}
+						matriz[b][a].text.text = sinEspacios.charAt( j);//// a la matriz se le asigna el caracter j-esimo y se cambia la fila y la columna hasta j=tamaño de la palabra
 				}
-				if(j==12){
+				if(j==13){
 					break;
 				}
 			}
@@ -176,8 +178,13 @@ function playSopa(lib, scene, palabras, coor){
 	//funcion que retorna true si una palabra fue encontrada
 	function encontrada() {
 		for (var i = 0; i < palabras.length; i++) {//recorre todo el array palabras
-			if (palabras[i] == palabraFormada) {//si la palabra que ase ha estado formando es igual a la palabra i
-				//console.log("tea");
+			if("SANANDRES" == palabras[i]){
+					DepartamentosDescubiertos.push("SAN ANDRES Y PROVIDENCIA");
+					return true
+			}else if(palabras[i].replace(/\s+/g, '') == palabraFormada || palabras[i].replace(/\s+/g, '').includes( palabraFormada )){
+				palabraFormada = palabras[i];
+			}
+			if (palabras[i] == palabraFormada) {//si la palabra que ha estado formando es igual a la palabra i
 				return true;//retorna true
 			}
 		}
@@ -187,12 +194,12 @@ function playSopa(lib, scene, palabras, coor){
 	function validar(i, j) {
 		var cas = matriz[i][j];// se crea la variable cas con el nodo de la matriz en la posicion i-j
 		if (palabraFormada.length == 0 || adyacente(i, j)) {//si es la primera letra escogida o si es adyasente a una letra ya escogida
-			color = (palabraFormada.length == 0 ? colors[random(colors.length)] : color); //se le asigna un nuevo color a "color" que sera con los que se pintaran las siguientes letras a la primera
+			colortm = (palabraFormada.length == 0 ? colors[random(colors.length)] : colortm); //se le asigna un nuevo color a "color" que sera con los que se pintaran las siguientes letras a la primera
 			palabraFormadaCoor[palabraFormada.length] = [i, j];//se le agrega las coordenadas a la coleccion coord
 			palabraFormadaNode[palabraFormada.length] = cas;//se le asigna los valores al array de nodes
 			palabraFormada = palabraFormada + cas.text.text;//se concadena la string ya formada y el nuevo caracter seleccionado
 			aux = cas.text.color; //se guerda el color aleatorio para las otras letras
-			cas.text.color = color; //al texto se le asigna al atributo color el color aleatorio
+			cas.text.color = colortm; //al texto se le asigna al atributo color el color aleatorio
 		}else {//el otro caso es que no sea una letra adyasente a las seleccionadas anteriormente
 			for (var k = 0; k < palabraFormadaNode.length; k++) {//se recorre toda la palabra
 				palabraFormadaNode[k].text.color = auxColor;//se le asigna el color dafault
@@ -208,14 +215,12 @@ function playSopa(lib, scene, palabras, coor){
 			palabraFormadaNode = [];//se vacia el array
 			palabraFormadaCoor = [];//se vacia el array
 			palabraFormada = "";//se vacia la string
-			DepartamentosDescubiertos.push(palabraFormada);
 			mapLayer.selectAll('path')
-				.style('fill', function(d){return descubierto(d) && centered && d===centered ? '#D5708B' : fillFn(d);});
-			console.log(DepartamentosDescubiertos);
+			.style({ opacity : function(d){return descubierto(d)? 1 : 0}});
 		}
 		if(palabras.length == 0){//si el array de palabras esta vacio se termina el juego
 			scene.removeAllChildren();//se borran todas las letras de la sopa
-			scene.gotoAndStop(siguienteFrame);//se va a la siguiente frame
+			scene.gotoAndStop(scene.currentFrame+1);//se va a la siguiente frame
 		}
 	}
 }
