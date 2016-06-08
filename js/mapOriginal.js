@@ -70,13 +70,13 @@ d3.json(mapDirection, function(error, mapData) {
 
 // Get province name
 function nameFn(d){
-  return d && d.properties ? d.properties.NOMBRE_DPT : null;
+  return d && d.properties ? d.properties.AREA : null;
 }
 
 // Get province name length
 function nameLength(d){
   var n = nameFn(d);
-  return n ? n.length : 0;
+  return n ;
 }
 
 // Get province color
