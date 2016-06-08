@@ -6,7 +6,7 @@ var width = 500,
 var color = d3.scale.linear()
   .domain([1, 20])
   .clamp(true)
-  .range(['#fff', '#409A99']);
+  .range(['#fff', '#f00']);
 
 var projection = d3.geo.mercator()
   .scale(1500)
